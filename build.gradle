@@ -37,10 +37,10 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
-task waitForUsersAPI(type: Exec) {
-	commandLine './wait-for-api.sh','http://localhost:8080/users', 'Users API'
+task waitForQueriesAPI(type: Exec) {
+	commandLine './wait-for-api.sh','http://localhost:8080/queries', 'Queries API'
 }
 
 test {
-	dependsOn waitForUsersAPI
+	dependsOn waitForQueriesAPI
 }
