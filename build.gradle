@@ -46,7 +46,7 @@ dependencies {
 }
 
 task waitForQueriesAPI(type: Exec) {
-	commandLine './wait-for-api.sh','http://localhost:8080/queries', 'Queries API'
+	commandLine './wait-for-api.sh','http://localhost:8080/memes', 'Memes API'
 }
 
 test {
