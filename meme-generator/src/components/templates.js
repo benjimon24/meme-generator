@@ -66,12 +66,6 @@ class Templates extends Component {
           onChange={this.searchTemplates}
           onBlur={this.resetPagination}
         />
-        <div>
-          {this.state.templates.map(meme => {
-            // setting the key here is very important!
-            return <Template {...meme} key={meme.id} url={meme.url} createMeme={this.props.createMeme} />;
-          })}
-        </div>
 
         <div>
           {this.state.pagination === 0 ? null : <button onClick={this.decrementPagination}>Previous</button>}
@@ -85,6 +79,12 @@ class Templates extends Component {
             );
           })}
           {this.state.pagination === 9 ? null : <button onClick={this.incrementPagination}>Next</button>}
+        </div>
+
+        <div>
+          {this.state.templates.map(meme => {
+            return <Template {...meme} key={meme.id} url={meme.url} createMeme={this.props.createMeme} />;
+          })}
         </div>
       </div>
     );

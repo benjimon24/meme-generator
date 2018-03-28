@@ -59,6 +59,7 @@ class App extends Component {
       data.append("password", newMeme.password);
 
       const response = await axios.post("https://api.imgflip.com/caption_image", data, axiosConfig);
+
       try {
         const localResponse = await axios.post("/memes", { url: response.data.data.url });
         const updatedMemes = [...this.state.memes];

@@ -3,7 +3,6 @@ import Meme from "./meme";
 
 class Memes extends Component {
   render() {
-    console.log(this.props);
     return (
       <div>
         <h1>Your Memes</h1>
