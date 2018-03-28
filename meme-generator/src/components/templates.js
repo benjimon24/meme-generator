@@ -9,6 +9,7 @@ class Templates extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({ templates: nextProps.templates.slice(0, 10) });
+    this.setState({ pagination: 0 });
   }
 
   searchTemplates = event => {
@@ -26,8 +27,9 @@ class Templates extends Component {
     }
   };
 
-  handlePagination = event => {
-    this.setState({ pagination: event.target.innerHTML - 1 }, () => {
+  handlePagination = e => {
+    e.preventDefault();
+    this.setState({ pagination: e.target.innerHTML - 1 }, () => {
       this.paginateTemplates();
     });
   };
@@ -66,6 +68,7 @@ class Templates extends Component {
         />
         <div>
           {this.state.templates.map(meme => {
+            // setting the key here is very important!
             return <Template {...meme} key={meme.id} url={meme.url} createMeme={this.props.createMeme} />;
           })}
         </div>

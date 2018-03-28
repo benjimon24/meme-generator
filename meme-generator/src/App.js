@@ -61,7 +61,6 @@ class App extends Component {
       const response = await axios.post("https://api.imgflip.com/caption_image", data, axiosConfig);
       try {
         const localResponse = await axios.post("/memes", { url: response.data.data.url });
-        console.log(localResponse);
         const updatedMemes = [...this.state.memes];
         updatedMemes.push(localResponse.data);
         this.setState({ memes: updatedMemes });
@@ -69,10 +68,6 @@ class App extends Component {
         console.log("Error saving meme");
         console.log(error);
       }
-
-      const updatedMemes = [...this.state.memes];
-      updatedMemes.push(response.data);
-      // this.setState({ events: updatedMemes });
     } catch (error) {
       console.log("Error creating meme");
       console.log(error);
