@@ -12,10 +12,18 @@ class Templates extends Component {
   }
 
   searchTemplates = event => {
-    let filteredResults = this.props.templates.filter(meme => {
-      return meme.name.toLowerCase().search(event.target.value.toLowerCase()) > -1;
-    });
+    let filteredResults = this.props.templates
+      .filter(meme => {
+        return meme.name.toLowerCase().search(event.target.value.toLowerCase()) > -1;
+      })
+      .slice(0, 10);
     this.setState({ templates: filteredResults });
+  };
+
+  resetPagination = event => {
+    if (event.target.value == "") {
+      this.paginateTemplates();
+    }
   };
 
   handlePagination = event => {
@@ -50,7 +58,12 @@ class Templates extends Component {
     return (
       <div>
         <h1>Templates</h1>
-        <input type="text" placeholder="Search Template " onChange={this.searchTemplates} />
+        <input
+          type="text"
+          placeholder="Search Template "
+          onChange={this.searchTemplates}
+          onBlur={this.resetPagination}
+        />
         <div>
           {this.state.templates.map(meme => {
             return <Template {...meme} key={meme.id} url={meme.url} createMeme={this.props.createMeme} />;

@@ -18,7 +18,7 @@ public class MemesController {
     private MemeRepository memeRepository;
 
     @GetMapping("/")
-    public Iterable<Meme> findAllUsers() {
+    public Iterable<Meme> findAllMemes() {
         return memeRepository.findAll();
     }
 
