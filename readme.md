@@ -24,8 +24,10 @@ Would have liked to have spent some time learning semantic-ui-react but spent to
 
 * Style the app with semantic-ui
 * Allow user to click on his own memes and use it as a template for a new meme
+* Update the text on an existing meme that you created
 * User authentication
 * Live preview of the meme before you submit
+* Changing font and positioning of meme text
 
 ---
 
