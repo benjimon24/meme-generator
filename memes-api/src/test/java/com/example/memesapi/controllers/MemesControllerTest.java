@@ -42,6 +42,7 @@ public class MemesControllerTest {
     private MemeRepository mockMemeRepository;
 
     private Meme newMeme;
+    private Meme updatedMeme;
 
     @Autowired
     private ObjectMapper jsonObjectMapper;
@@ -56,6 +57,11 @@ public class MemesControllerTest {
                 "testing2"
         );
 
+        updatedMeme = new Meme(
+                "testing_updated"
+        );
+
+
         Iterable<Meme> mockMemes =
                 Stream.of(firstMeme, secondMeme).collect(Collectors.toList());
 
@@ -68,6 +74,7 @@ public class MemesControllerTest {
 
         newMeme = new Meme("testing3");
         given(mockMemeRepository.save(newMeme)).willReturn(newMeme);
+        given(mockMemeRepository.save(updatedMeme)).willReturn(updatedMeme);
     }
 
     @Test
@@ -172,6 +179,54 @@ public class MemesControllerTest {
                                 .content(jsonObjectMapper.writeValueAsString(newMeme))
                 )
                 .andExpect(jsonPath("$.url", is("testing3")));
+    }
+
+    @Test
+    public void updateMemeById_success_returnsStatusOk() throws Exception {
+
+        this.mockMvc
+                .perform(
+                        patch("/1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonObjectMapper.writeValueAsString(updatedMeme))
+                )
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void updateMemeById_success_returnsUpdatedURL() throws Exception {
+
+        this.mockMvc
+                .perform(
+                        patch("/1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonObjectMapper.writeValueAsString(updatedMeme))
+                )
+                .andExpect(jsonPath("$.url", is("testing_updated")));
+    }
+
+    @Test
+    public void updateMemeById_failure_memeNotFoundReturns404() throws Exception {
+
+        this.mockMvc
+                .perform(
+                        patch("/4")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonObjectMapper.writeValueAsString(updatedMeme))
+                )
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void updateMemeById_failure_memeNotFoundReturnsNotFoundErrorMessage() throws Exception {
+
+        this.mockMvc
+                .perform(
+                        patch("/4")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonObjectMapper.writeValueAsString(updatedMeme))
+                )
+                .andExpect(status().reason(containsString("Meme with ID of 4 was not found!")));
     }
 
 }

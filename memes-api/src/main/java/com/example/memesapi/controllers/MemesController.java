@@ -38,10 +38,23 @@ public class MemesController {
         return memeRepository.save(newMeme);
     }
 
-    @DeleteMapping("/{userId}")
-    public HttpStatus deleteUserById(@PathVariable Long userId) throws EmptyResultDataAccessException {
-        memeRepository.delete(userId);
+    @DeleteMapping("/{memeId}")
+    public HttpStatus deleteMemeById(@PathVariable Long memeId) throws EmptyResultDataAccessException {
+        memeRepository.delete(memeId);
         return HttpStatus.OK;
+    }
+
+    @PatchMapping("/{memeId}")
+    public Meme updateMemeById(@PathVariable Long memeId, @RequestBody Meme memeRequest) throws NotFoundException{
+        Meme memeFromDb = memeRepository.findOne(memeId);
+
+        if (memeFromDb == null) {
+            throw new NotFoundException("Meme with ID of " + memeId + " was not found!");
+        }
+
+        memeFromDb.setUrl(memeRequest.getUrl());
+
+        return memeRepository.save(memeFromDb);
     }
 
     @ExceptionHandler
