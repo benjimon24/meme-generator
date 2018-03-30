@@ -39,7 +39,7 @@ Would have liked to have spent some time learning semantic-ui-react but spent to
 
 ## Developer Notes
 
-* The back end supports create, read, and delete, but does not have a route for updating - considering the back-end memes-api only stores one piece of data at the moment (the url), I thought it was unnecessary
+* The back end supports full CRUD but the front-end doesn't support updating. At the moment it doesn't really make sense to considering the back-end just stores the URL and changing the URL would no longer give you the image. If I were to expand this project I would probably want to make the back-end store the template ID as well as the top and bottom texts, so if you wanted to update the meme you can post to the third party API and get a new URL.
 
 ---
 
