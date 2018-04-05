@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Template from "./template";
+import { Header, Grid, Container, Button, Input, Divider } from "semantic-ui-react";
 
 class Templates extends Component {
   state = {
@@ -7,10 +8,10 @@ class Templates extends Component {
     pagination: 0
   };
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ templates: nextProps.templates.slice(0, 10) });
-    this.setState({ pagination: 0 });
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({ templates: nextProps.templates.slice(0, 10) });
+  //   this.setState({ pagination: 0 });
+  // }
 
   searchTemplates = event => {
     let filteredResults = this.props.templates
@@ -22,7 +23,7 @@ class Templates extends Component {
   };
 
   resetPagination = event => {
-    if (event.target.value == "") {
+    if (event.target.value === "") {
       this.paginateTemplates();
     }
   };
@@ -58,35 +59,59 @@ class Templates extends Component {
   render() {
     let paginators = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     return (
-      <div>
-        <h1>Templates</h1>
-        <input
+      <Container>
+        <Header as="h1">Only the Spiciest of Memes</Header>
+        <Input
           type="text"
-          placeholder="Search Template "
+          placeholder="Search Templates"
           onChange={this.searchTemplates}
           onBlur={this.resetPagination}
         />
 
-        <div>
-          {this.state.pagination === 0 ? null : <button onClick={this.decrementPagination}>Previous</button>}
+        <Divider hidden />
+
+        <Container>
+          {this.state.pagination === 0 ? (
+            <Button disabled>Previous</Button>
+          ) : (
+            <Button onClick={this.decrementPagination}>Previous</Button>
+          )}
           {paginators.map((paginator, index) => {
             return paginator !== this.state.pagination + 1 ? (
-              <button key={index} onClick={this.handlePagination}>
+              <Button key={index} onClick={this.handlePagination}>
                 {paginator}
-              </button>
+              </Button>
             ) : (
-              paginator
+              <Button key={index} disabled>
+                {paginator}
+              </Button>
             );
           })}
-          {this.state.pagination === 9 ? null : <button onClick={this.incrementPagination}>Next</button>}
-        </div>
+          {this.state.pagination === 9 ? (
+            <Button disabled>Next</Button>
+          ) : (
+            <Button onClick={this.incrementPagination}>Next</Button>
+          )}
+        </Container>
 
-        <div>
-          {this.state.templates.map(meme => {
-            return <Template {...meme} key={meme.id} url={meme.url} createMeme={this.props.createMeme} />;
-          })}
-        </div>
-      </div>
+        <Divider hidden />
+
+        <Container>
+          <Grid>
+            {this.state.templates.map(meme => {
+              return (
+                <Template
+                  {...meme}
+                  key={meme.id}
+                  url={meme.url}
+                  createMeme={this.props.createMeme}
+                  setModal={this.props.setModal}
+                />
+              );
+            })}
+          </Grid>
+        </Container>
+      </Container>
     );
   }
 }

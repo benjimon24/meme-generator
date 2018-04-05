@@ -3,11 +3,16 @@ import axios from "axios";
 import "./App.css";
 import Templates from "./components/templates";
 import Memes from "./components/memes";
+import Modal from "./components/modal";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Navbar from "./components/navbar";
 
 class App extends Component {
   state = {
     templates: [],
-    memes: []
+    memes: [],
+    modalUrl: "",
+    showModal: false
   };
 
   componentDidMount = async () => {
@@ -75,11 +80,36 @@ class App extends Component {
     }
   };
 
+  setModal = url => {
+    console.log(url);
+    this.setState({ modalUrl: url, showModal: true });
+  };
+
+  hideModal = () => {
+    this.setState({ showModal: false });
+  };
+
   render() {
     return (
       <div className="App">
-        <Memes memes={this.state.memes} deleteMeme={this.deleteMeme} />
-        <Templates templates={this.state.templates} createMeme={this.createMeme} />
+        <Navbar />
+        {this.state.showModal ? <Modal url={this.state.modalUrl} hideModal={this.hideModal} /> : null}
+
+        <BrowserRouter>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => <Memes setModal={this.setModal} memes={this.state.memes} deleteMeme={this.deleteMeme} />}
+            />
+            <Route
+              path="/templates"
+              render={() => (
+                <Templates setModal={this.setModal} templates={this.state.templates} createMeme={this.createMeme} />
+              )}
+            />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   }
