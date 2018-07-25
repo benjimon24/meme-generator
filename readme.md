@@ -22,7 +22,6 @@ Would have liked to have spent some time learning semantic-ui-react but spent to
 
 ## Upcoming Features
 
-* Style the app with semantic-ui
 * Allow user to click on his own memes and use it as a template for a new meme
 * Update the text on an existing meme that you created
 * User authentication
@@ -34,7 +33,7 @@ Would have liked to have spent some time learning semantic-ui-react but spent to
 ## Configuration
 
 * Tests are not configured with gradle - but they can be manually run from within IntelliJ. There are no feature tests or repository tests.
-* The back-end api can be run using 'docker-compose up' from the wrapper api
+* The back-end api can be run using 'docker-compose up' from the wrapper API
 * The front-end app has to be run seperately with 'yarn start' in the meme-generator directory within the wrapper
 
 ---
