@@ -46,6 +46,6 @@ Would have liked to have spent some time learning semantic-ui-react but spent to
 
 ## Technologies Used
 
-* React
-* Java Springboot
+* [React](https://reactjs.org/)
+* [Spring Boot](https://github.com/spring-projects/spring-boot)
 * [Imgflip API](https://api.imgflip.com/)
