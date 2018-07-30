@@ -1,6 +1,6 @@
 # Meme Generator
 
-A full-stack application created using Java Spring Boot back-end and React front-end. The back-end API is built using the microservices design pattern, following TDD principles.
+A full-stack application created using Java Spring Boot back-end and React front-end. The back-end API is built using the microservices design pattern, following TDD principles. Allows users to create their own memes using images of the 100 most popular memes and inserting their own text.
 
 ---
 
